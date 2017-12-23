@@ -1,0 +1,24 @@
+{
+  "name": "thehuntapp2",
+  "version": "1.0.0",
+  "description": "App to ease scoring of posts in #TheHunt4.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/annie-mathis/thehunt4scoring.git"
+  },
+  "author": "Annie Mathis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/annie-mathis/thehunt4scoring/issues"
+  },
+  "homepage": "https://github.com/annie-mathis/thehunt4scoring#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "password-generator": "^2.2.0"
+  }
+}
