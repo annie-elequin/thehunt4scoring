@@ -2,10 +2,10 @@
   "name": "thehuntapp2",
   "version": "1.0.0",
   "description": "App to ease scoring of posts in #TheHunt4.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
+    "start": "rimraf ./public && babel-register server && node server.js",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "repository": {
@@ -19,7 +19,29 @@
   },
   "homepage": "https://github.com/annie-mathis/thehunt4scoring#readme",
   "dependencies": {
+    "axios": "^0.17.1",
+    "dotenv": "^4.0.0",
     "express": "^4.16.2",
+    "mongodb": "^3.0.1",
     "password-generator": "^2.2.0"
+  },
+  "devDependencies": {
+    "babel-loader": "^7.0.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.5.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "babel-register-cli": "^4.0.0",
+    "rimraf": "^2.6.1",
+    "webpack": "^2.5.0",
+    "webpack-dev-server": "^2.5.0"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "react",
+      "stage-2"
+    ]
   }
 }
