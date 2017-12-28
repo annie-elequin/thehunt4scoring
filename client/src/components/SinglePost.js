@@ -1,5 +1,5 @@
 import React from 'react';
-import {Jumbotron,Panel,Container,Row,Col} from 'react-bootstrap';
+import {Jumbotron,Panel,Grid,Row,Col} from 'react-bootstrap';
 
 export default class SinglePost extends React.Component {
 
@@ -11,7 +11,7 @@ export default class SinglePost extends React.Component {
 
     return(
 
-      <Container>
+      <Grid>
         <Row className="show-grid">
           <Col xs={12} md={8}><code>&lt;{'Col xs={12} md={8}'} /&gt;</code></Col>
           <Col xs={6} md={4}><code>&lt;{'Col xs={6} md={4}'} /&gt;</code></Col>
@@ -31,7 +31,7 @@ export default class SinglePost extends React.Component {
           <Col md={6} mdPush={6}><code>&lt;{'Col md={6} mdPush={6}'} /&gt;</code></Col>
           <Col md={6} mdPull={6}><code>&lt;{'Col md={6} mdPull={6}'} /&gt;</code></Col>
         </Row>
-      </Container>
+      </Grid>
 
     );
   }
