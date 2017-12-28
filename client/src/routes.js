@@ -1,10 +1,10 @@
 import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 
-import Home from '../pages/Home.js';
-import ScoringPage from '../pages/ScoringPage.js';
-import BenPage from '../pages/BenPage.js';
-import ChallengePage from '../pages/ChallengePage.js'
+import Home from './pages/Home.js';
+import ScoringPage from './pages/ScoringPage.js';
+import BenPage from './pages/BenPage.js';
+import ChallengePage from './pages/ChallengePage.js'
 
 
 export default class Routes extends React.Component {
