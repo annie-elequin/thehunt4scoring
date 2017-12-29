@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "rimraf ./public && babel-register server",
+    "start": "npm install && rimraf ./public && babel-register server",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "repository": {
@@ -20,12 +20,10 @@
   "homepage": "https://github.com/annie-mathis/thehunt4scoring#readme",
   "dependencies": {
     "axios": "^0.17.1",
+    "rimraf": "^2.6.1",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "mongodb": "^2.2.33",
-    "password-generator": "^2.2.0"
-  },
-  "devDependencies": {
     "babel-loader": "^7.0.0",
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.5.1",
@@ -33,7 +31,9 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.24.1",
     "babel-register-cli": "^4.0.0",
-    "rimraf": "^2.6.1",
+    "react-bootstrap": "^0.31.5"
+  },
+  "devDependencies": {
     "webpack": "^2.5.0",
     "webpack-dev-server": "^2.5.0"
   },
