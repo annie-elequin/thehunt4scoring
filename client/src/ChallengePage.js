@@ -1,6 +1,6 @@
 import React from 'react';
 import {Grid,Row,Col} from 'react-bootstrap';
-import NavBar from '../components/NavBar.js';
+import NavBar from './NavBar.js';
 import axios from 'axios';
 import Post from './Post';
 

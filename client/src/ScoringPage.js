@@ -1,7 +1,7 @@
 import React from 'react';
 import {Grid,Row,Col} from 'react-bootstrap';
-import NavBar from '../components/NavBar.js';
-import SinglePost from '../components/SinglePost.js';
+import NavBar from './NavBar.js';
+import SinglePost from './SinglePost.js';
 
 
 const posts = {
