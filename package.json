@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "rimraf ./public && babel-register server && node server.js",
+    "start": "rimraf ./public && babel-register server && webpack && node server.js",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "repository": {
@@ -22,7 +22,7 @@
     "axios": "^0.17.1",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
-    "mongodb": "^3.0.1",
+    "mongodb": "^2.2.33",
     "password-generator": "^2.2.0"
   },
   "devDependencies": {
