@@ -38,6 +38,8 @@ export default class NavBar extends React.Component {
           <NavItem eventKey={5}><Link to="/challenges/">Score A Challenge</Link></NavItem>
           <NavItem eventKey={6}><Link to="/test">Test Page</Link></NavItem>
           <NavItem eventKey={7}><Link to="/unscoredByDate">Unscored By Day</Link></NavItem>
+          <NavItem eventKey={8}><Link to="/addChallenge">Add New Challenges</Link></NavItem>
+
 
         </Nav>
       </Navbar>

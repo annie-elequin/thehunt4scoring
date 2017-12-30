@@ -6,7 +6,7 @@ import ScoringPage from './pages/ScoringPage.js';
 import BenPage from './pages/BenPage.js';
 import ChallengePage from './pages/ChallengePage.js';
 import UnscoredByDatePage from './pages/UnscoredByDate.js';
-
+import AddChallengePage from './pages/AddChallengePage.js';
 
 export default class Routes extends React.Component {
 	render() {
@@ -18,6 +18,7 @@ export default class Routes extends React.Component {
       		<Route exact path="/test" component={BenPage} />
           <Route path='/challenges' component={ChallengePage} />
 					<Route exact path="/unscoredByDate" component={UnscoredByDatePage} />
+					<Route exact path="/addChallenge" component={AddChallengePage} />
 
 				</div>
 			</HashRouter>

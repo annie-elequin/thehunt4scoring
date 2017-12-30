@@ -4,7 +4,7 @@
   "description": "App to ease scoring of posts in #TheHunt4.",
   "main": "server.js",
   "scripts": {
-    "test":  "test: echo \"Error: no test specified\" && exit 1",
+    "test": "test: echo \"Error: no test specified\" && exit 1",
     "start": "npm install &&  babel-register server",
     "heroku-postbuild": "rimraf ./client/build/static && cd client && npm install --only=dev && npm install && npm run build"
   },

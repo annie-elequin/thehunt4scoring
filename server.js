@@ -50,10 +50,100 @@ app.get('/allids', (request, response) =>{
   });
 })
 
+//app.get('/newChallenge/:challenge/:score'){
+//
+//}
+
+app.get('/getChallenges', (request, response) =>{
+  const uri = 'mongodb://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+':'+process.env.DBPORT+'/'+process.env.DB;
+
+  mongodb.MongoClient.connect(uri, function(err, db) {
+    if(err){
+      console.log(err);
+      throw err;
+    }
+
+    var challengeCollection = db.collection('challenges');
+
+    //Return all documents in the selection
+    challengeCollection.find({}).toArray().then(docs =>{
+      response.send(docs);
+    })
+  });
+})
+
+app.get('/removeChallenge/:challenge', (request, response) =>{
+  const challenge = request.params.challenge;
+
+  //If passed an undefined challenge, the remove function will wipe the entire
+  //collection. This if statement is all that stands between us and that dark day
+  if(challenge){
+    const uri = 'mongodb://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+':'+process.env.DBPORT+'/'+process.env.DB;
+
+    mongodb.MongoClient.connect(uri, function(err, db) {
+      if(err){
+        console.log(err);
+        throw err;
+      }
+
+      var challengeCollection = db.collection('challenges');
+
+      challengeCollection.remove(
+        //Find documents with the challenge we're removing (should just be one)
+        {_id: {$eq: challenge}},
+
+        (err, result) => {
+          if(err) throw err;
+        }
+      )
+    });
+
+    return response.send('challenge removed!');
+  }
+  else{
+    response.send("No challenge received");
+  }
+})
+
+app.get('/newChallenge/:challenge/:score', (request, response) =>{
+  const challenge = request.params.challenge;
+  const score = parseInt(request.params.score, 10);
+  const time = new Date();
+
+  const uri = 'mongodb://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+':'+process.env.DBPORT+'/'+process.env.DB;
+
+  const challengeDoc = {_id: challenge, challenge: challenge, score: score, date: time};
+
+  mongodb.MongoClient.connect(uri, function(err, db) {
+    if(err){
+      console.log(err);
+      throw err;
+    }
+
+    var challengeCollection = db.collection('challenges');
+
+    challengeCollection.update(
+      //Find documents with the same image id as the one we're updating
+      {_id: {$eq: challenge}},
+      //Replace them with the challenge information provided
+      challengeDoc,
+      //If the image hasn't already been scored, go ahead and insert its score
+      {upsert: true},
+
+      (err, result) => {
+        if(err) response.send(err);
+      }
+    )
+    console.log("Update ended");
+  });
+
+  return response.send('Got it!');
+})
+
 app.get('/scorePhoto/:photoId/:score/:team', (request, response) =>{
   //Do DB stuff
   const id = request.params.photoId;
-  const score = parseInt(request.params.score);
+  const score = parseInt(request.params.score, 10);
   const team = request.params.team;
   const time = new Date();
 

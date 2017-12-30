@@ -51,9 +51,15 @@ export default class Post extends React.Component {
 
 
   render(){
+    //Id is in a XXXXXXXX_XXXXXXXX format where the first number is the page
+    //id and the second number is the post id.
+    const postId = this.props.id.split('_')[1];
+    const link = "https://www.facebook.com/groups/TheHunt3/permalink/" + postId;
     return(
       <div>
-          <img src={this.props.src} alt={this.props.id}/>
+          <a href={link} target="_blank">
+            <img src={this.props.src} alt={this.props.id}/>
+          </a>
           <p>{this.props.message}</p>
           <form onSubmit={this.handleSubmit}>
             <label>
