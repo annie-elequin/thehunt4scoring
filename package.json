@@ -4,9 +4,9 @@
   "description": "App to ease scoring of posts in #TheHunt4.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm install && rimraf ./public && babel-register server",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "test": "rimraf ./client/build/static && babel-register server && cd client && npm run build",
+    "start": "npm install && rimraf ./client/build/static && babel-register server",
+    "poststart": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "repository": {
     "type": "git",

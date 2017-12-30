@@ -23,7 +23,7 @@ app.get('/allphotos', (request, response) => {
 
 
   axios.get('https://graph.facebook.com/' + pageId +
-              '/feed?access_token=' + token + '&fields=picture,message')
+              '/feed?access_token=' + token + '&fields=picture,message,updated_time&limit=100')
          .then(res => {
            return response.send(res.data.data);
          })
