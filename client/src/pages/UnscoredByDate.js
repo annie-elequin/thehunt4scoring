@@ -2,7 +2,8 @@ import React from 'react';
 import {Grid,Row,Col} from 'react-bootstrap';
 import axios from 'axios';
 import NavBar from '../components/NavBar.js';
-import Post from '../components/Post';
+import Post from '../components/Post.js';
+import {htmlToJsDate, fbToJsDate} from '../dateHandling.js'
 
 const teams = ['thehunt3fire', 'thehunt3air', 'thehunt3water', 'thehunt3earth'];
 
@@ -55,10 +56,10 @@ export class UnscoredDatePosts extends React.Component {
     const endDate = this.props.end;
     const ids = this.state.ids;
 
-
     var picsOnly = [];
     for(var i = 0; i < images.length; i++){
-        const photoDate = images[i].updated_time;
+        const photoDate = fbToJsDate(images[i].updated_time);
+
         if(images[i].picture && photoDate < endDate && photoDate >= startDate &&
             images[i].id && !(images[i].id in ids)){
           picsOnly.push(images[i]);
@@ -88,7 +89,8 @@ export default class UnscoredByDatePage extends React.Component {
     super();
     //Bind the this keyword to the handleChange and handleSubmit,
     //Allowing the program to change state within them
-    this.handleChange = this.handleChange.bind(this);
+    this.handleStartChange = this.handleStartChange.bind(this);
+    this.handleEndChange = this.handleEndChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     //Initialize a default state so that things won't break
     //when pulling data takes a bit
@@ -98,10 +100,18 @@ export default class UnscoredByDatePage extends React.Component {
   }
 
   handleStartChange(event) {
-    this.setState({start: new Date(event.target.value)});
+    const date = event.target.value;
+    //Convert from 2017-010-31 to [2017, 10, 31]
+    const jsDate = htmlToJsDate(date);
+
+    this.setState({start: jsDate, formStart: date});
   }
   handleEndChange(event){
-    this.setState({end: new Date(event.target.value)});
+    const date = event.target.value;
+    //Convert from 2017-010-31 to [2017, 10, 31]
+    const jsDate = htmlToJsDate(date);
+
+    this.setState({end: jsDate, formEnd: date});
   }
 
   handleSubmit(event) {
@@ -118,7 +128,7 @@ export default class UnscoredByDatePage extends React.Component {
         //Print message to the screen telling user what the error was
       }
       else{
-        this.setState({images: res.data, challenge: 'none'});
+        this.setState({images: res.data});
       }
     });
   }
@@ -130,9 +140,12 @@ export default class UnscoredByDatePage extends React.Component {
           <NavBar/>
           <form onSubmit={this.handleSubmit}>
             <label>
-            Enter Challenge:
-            <input type="date" name="startDate" value={this.state.start} onChange={this.handleStartChange} />
-            <input type="date" name="endDate" value={this.state.end} onChange={this.handleEndChange} />
+            Start Date:
+            <input type="date" name="startDate" value={this.state.formStart} onChange={this.handleStartChange} />
+            </label>
+            <label>
+            End Date:
+            <input type="date" name="endDate" value={this.state.formEnd} onChange={this.handleEndChange} />
             </label>
             <input type="submit" value="Submit" />
           </form>

@@ -11,6 +11,7 @@ export class UnscoredPosts extends React.Component {
 
   constructor(){
     super();
+    
     this.handlePostScored = this.handlePostScored.bind(this);
     this.state = {ids: {}};
   }

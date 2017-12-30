@@ -6,7 +6,7 @@
   "scripts": {
     "test": "rimraf ./client/build/static && babel-register server && cd client && npm run build",
     "start": "npm install && rimraf ./client/build/static && babel-register server",
-    "poststart": "cd client && npm install --only=dev && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "repository": {
     "type": "git",
