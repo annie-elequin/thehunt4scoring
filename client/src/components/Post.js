@@ -4,6 +4,15 @@ import {Grid,Row,Col} from 'react-bootstrap';
 
 const teams = ['thehunt3fire', 'thehunt3air', 'thehunt3water', 'thehunt3earth'];
 
+function findChallenge(message, challengeList){
+
+  var challenge = "none";
+
+  //Find appropriate challenge
+
+  return challenge;
+}
+
 export default class Post extends React.Component {
 
   constructor(){
@@ -29,20 +38,21 @@ export default class Post extends React.Component {
     for(var i = 0; i < teams.length; i++){
       var matchExpression = new RegExp(teams[i],'i');
 
-      if(this.props.message.match(matchExpression)){
+      if(this.props.image.message.match(matchExpression)){
         team = teams[i];
         console.log("Team is ", teams[i]);
       }
     }
 
-    const url = '/scorePhoto/' + this.props.id + "/" + score.toString() + '/' + team;
+    const url = '/scorePhoto/' + this.props.image.id + "/" + score.toString() + '/' +
+      team + "/" + this.props.image.updated_time;
     console.log(url);
 
     axios.get(url)
       .then(res => {
         //Tell the calling page that this component has been graded
         if(this.props.scoreHandler){
-          this.props.scoreHandler(this.props.id);
+          this.props.scoreHandler(this.props.image.id);
         }
     });
 

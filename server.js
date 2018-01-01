@@ -140,12 +140,12 @@ app.get('/newChallenge/:challenge/:score', (request, response) =>{
   return response.send('Got it!');
 })
 
-app.get('/scorePhoto/:photoId/:score/:team', (request, response) =>{
+app.get('/scorePhoto/:photoId/:score/:team/:date', (request, response) =>{
   //Do DB stuff
   const id = request.params.photoId;
   const score = parseInt(request.params.score, 10);
   const team = request.params.team;
-  const time = new Date();
+  const time = request.params.date;
 
 
   const uri = 'mongodb://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+':'+process.env.DBPORT+'/'+process.env.DB;

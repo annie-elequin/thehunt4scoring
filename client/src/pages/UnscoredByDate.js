@@ -20,7 +20,7 @@ export class UnscoredDatePosts extends React.Component {
   componentDidMount(){
     //I wish this could be a set, but we'll have to hack around with an object
     const ids = {};
-    var entryList = [];
+    entryList = [];
 
     //Get the ids of all graded images
     axios.get('/allids')
@@ -33,9 +33,7 @@ export class UnscoredDatePosts extends React.Component {
         //we can't always get what we want
         ids[entryList[i]._id] = true;
       }
-
       this.setState({ids: ids});
-
     })
     .catch( err => {
       console.log(err);
@@ -68,8 +66,8 @@ export class UnscoredDatePosts extends React.Component {
 
     const post = picsOnly.map((image) =>
         <li key={image.id}>
-          <Post src={image.picture} message={image.message} id={image.id}
-            scoreHandler={this.handlePostScored}/>
+          <Post image={image} scoreHandler={this.handlePostScored}
+            challengeList={this.props.challengeList}/>
         </li>
     );
 
@@ -95,7 +93,8 @@ export default class UnscoredByDatePage extends React.Component {
     //Initialize a default state so that things won't break
     //when pulling data takes a bit
     this.state = {
-      images: []
+      images: [],
+      challengeList: {}
     };
   }
 
@@ -122,6 +121,25 @@ export default class UnscoredByDatePage extends React.Component {
   }
 
   componentDidMount(){
+    const challenges = {};
+    var entryList = [];
+
+    //Get the ids of all graded images
+    axios.get('/getChallenges')
+    .then( res => {
+      entryList = res.data;
+
+      for(var i = 0; i < entryList.length; i++){
+        challenges[entryList[i].challenge] = entryList[i].score;
+      }
+      this.setState({challengeList: challenges});
+    })
+
+    .catch( err => {
+      console.log(err);
+      throw err;
+    });
+
     axios.get('/allphotos').then(res => {
 
       if (res == "error"){
@@ -150,7 +168,7 @@ export default class UnscoredByDatePage extends React.Component {
             <input type="submit" value="Submit" />
           </form>
           <UnscoredDatePosts images={this.state.images} challenge={this.state.challenge}
-            start = {this.state.start} end = {this.state.end} />
+            start = {this.state.start} end = {this.state.end}  challengeList={this.state.challengeList}/>
         </div>
 		);
 	}

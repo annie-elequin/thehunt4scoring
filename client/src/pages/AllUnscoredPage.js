@@ -66,7 +66,8 @@ export class UnscoredPosts extends React.Component {
 
     const post = picsOnly.map((image) =>
         <li key={image.id}>
-          <Post src={image.picture} message={image.message} id={image.id} scoreHandler={this.handlePostScored}/>
+          <Post image={image} scoreHandler={this.handlePostScored}
+            challengeList={this.props.challengeList}/>
         </li>
     );
 
@@ -80,28 +81,38 @@ export class UnscoredPosts extends React.Component {
   }
 }
 
-export default class BenPage extends React.Component {
+export default class AllUnscoredPage extends React.Component {
 
   constructor(){
     super();
     //Initialize a default state so that things won't break
     //when pulling data takes a bit
     this.state = {
-      images: []
+      images: [],
+      challengeList: {}
     };
   }
 
   componentDidMount(){
 
-  /*axios.get('/login').then( res => {
-    console.log(res)
-  })
-  .error( err => {
-    console.log(err);
-  });  */
+    const challenges = {};
+    var entryList = [];
 
+    //Get the ids of all graded images
+    axios.get('/getChallenges')
+    .then( res => {
+      entryList = res.data;
 
+      for(var i = 0; i < entryList.length; i++){
+        challenges[entryList[i].challenge] = entryList[i].score;
+      }
+      this.setState({challengeList: challenges});
+    })
 
+    .catch( err => {
+      console.log(err);
+      throw err;
+    });
 
     axios.get('/allphotos').then(res => {
 
@@ -120,7 +131,7 @@ export default class BenPage extends React.Component {
 		return (
         <div>
           <NavBar/>
-          <UnscoredPosts images={this.state.images}/>
+          <UnscoredPosts images={this.state.images} challengeList={this.state.challengeList}/>
         </div>
 		);
 	}

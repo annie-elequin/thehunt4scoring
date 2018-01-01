@@ -23,7 +23,7 @@ export class ChallengePosts extends React.Component {
 
     const post = picsOnly.map((image) =>
         <li key={image.id}>
-          <Post src={image.picture} message={image.message} id={image.id} />
+          <Post image={image} challengeList={this.props.challengeList}/>
         </li>
     );
 
@@ -48,7 +48,9 @@ export default class ChallengePage extends React.Component {
     //Initialize a default state so that things won't break
     //when pulling data takes a bit
     this.state = {
-      images: []
+      images: [],
+      challenge: "none",
+      challengeList: {}
     };
   }
 
@@ -68,6 +70,26 @@ export default class ChallengePage extends React.Component {
   }
 
   componentDidMount(){
+
+    const challenges = {};
+    var entryList = [];
+
+    //Get the ids of all graded images
+    axios.get('/getChallenges')
+    .then( res => {
+      entryList = res.data;
+
+      for(var i = 0; i < entryList.length; i++){
+        challenges[entryList[i].challenge] = entryList[i].score;
+      }
+      this.setState({challengeList: challenges});
+    })
+
+    .catch( err => {
+      console.log(err);
+      throw err;
+    });
+
     axios.get('/allphotos').then(res => {
 
       if (res == "error"){
@@ -91,7 +113,8 @@ export default class ChallengePage extends React.Component {
             </label>
             <input type="submit" value="Submit" />
           </form>
-          <ChallengePosts images={this.state.images} challenge={this.state.challenge}/>
+          <ChallengePosts images={this.state.images} challenge={this.state.challenge}
+              challengeList={this.state.challengeList}/>
         </div>
 		);
 	}
