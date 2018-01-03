@@ -60,7 +60,8 @@ export default class Post extends React.Component {
     }
 
     const url = '/scorePhoto/' + this.props.image.id + "/" + score.toString() + '/' +
-      team + "/" + this.props.image.updated_time;
+      team + "/" + this.props.image.updated_time + "/" + this.props.image.from.name +
+      '/' + this.props.image.from.id;
     console.log(url);
 
     axios.get(url)

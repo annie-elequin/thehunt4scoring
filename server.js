@@ -23,7 +23,7 @@ app.get('/allphotos', (request, response) => {
 
 
   axios.get('https://graph.facebook.com/' + pageId +
-              '/feed?access_token=' + token + '&fields=picture,message,updated_time&limit=100')
+              '/feed?access_token=' + token + '&fields=picture,message,updated_time,from&limit=100')
          .then(res => {
            return response.send(res.data.data);
          })
@@ -140,17 +140,20 @@ app.get('/newChallenge/:challenge/:score', (request, response) =>{
   return response.send('Got it!');
 })
 
-app.get('/scorePhoto/:photoId/:score/:team/:date', (request, response) =>{
+app.get('/scorePhoto/:photoId/:score/:team/:date/:user/:uid', (request, response) =>{
   //Do DB stuff
   const id = request.params.photoId;
   const score = parseInt(request.params.score, 10);
   const team = request.params.team;
   const time = request.params.date;
+  const userName = request.params.user;
+  const userId = request.params.uid;
 
 
   const uri = 'mongodb://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+':'+process.env.DBPORT+'/'+process.env.DB;
 
-  const scoreDoc = {_id: id, score: score, team: team, date: time};
+  const scoreDoc = {_id: id, score: score, team: team, date: time,
+                     name: userName, userId: userId};
 
   mongodb.MongoClient.connect(uri, function(err, db) {
     if(err){
