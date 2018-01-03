@@ -6,11 +6,17 @@ const teams = ['thehunt3fire', 'thehunt3air', 'thehunt3water', 'thehunt3earth'];
 
 function findChallenge(message, challengeList){
 
-  var challenge = "none";
+  var challengeObject = {challenge: "none", score: 0};
+  var challenges = Object.keys(challengeList);
 
-  //Find appropriate challenge
+  for(var i = 0; i < challenges.length; i++){
+    if(message.includes(challenges[i].toLowerCase())){
+      challengeObject.challenge = challenges[i]
+      challengeObject.score = challengeList[challenges[i]];
+    }
+  }
 
-  return challenge;
+  return challengeObject;
 }
 
 export default class Post extends React.Component {
@@ -31,7 +37,16 @@ export default class Post extends React.Component {
   }
 
   handleSubmit(event) {
-    var score = parseInt(this.state.bonus) + parseInt(this.state.base);
+
+    event.preventDefault();
+
+    //Find which challenge the image represents (this is done when the post is
+    // scored to reduce the render time)
+    var challengeObject = findChallenge(this.props.image.message, this.props.challengeList);
+
+    console.log("Detected challenge ", challengeObject);
+
+    var score = parseInt(this.state.bonus) + parseInt(challengeObject.score);
     var team = "none";
 
 
@@ -56,21 +71,20 @@ export default class Post extends React.Component {
         }
     });
 
-    event.preventDefault();
   }
 
 
   render(){
     //Id is in a XXXXXXXX_XXXXXXXX format where the first number is the page
     //id and the second number is the post id.
-    const postId = this.props.id.split('_')[1];
+    const postId = this.props.image.id.split('_')[1];
     const link = "https://www.facebook.com/groups/TheHunt3/permalink/" + postId;
     return(
       <div>
           <a href={link} target="_blank">
-            <img src={this.props.src} alt={this.props.id}/>
+            <img src={this.props.image.picture} alt={this.props.image.id}/>
           </a>
-          <p>{this.props.message}</p>
+          <p>{this.props.image.message}</p>
           <form onSubmit={this.handleSubmit}>
             <label>
             Enter Bonus Points:

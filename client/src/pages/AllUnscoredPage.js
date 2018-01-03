@@ -67,7 +67,7 @@ export class UnscoredPosts extends React.Component {
     const post = picsOnly.map((image) =>
         <li key={image.id}>
           <Post image={image} scoreHandler={this.handlePostScored}
-            challengeList={this.props.challengeList}/>
+              challengeList={this.props.challengeList}/>
         </li>
     );
 

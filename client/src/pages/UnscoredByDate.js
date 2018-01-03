@@ -20,7 +20,7 @@ export class UnscoredDatePosts extends React.Component {
   componentDidMount(){
     //I wish this could be a set, but we'll have to hack around with an object
     const ids = {};
-    entryList = [];
+    var entryList = [];
 
     //Get the ids of all graded images
     axios.get('/allids')

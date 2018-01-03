@@ -49,7 +49,7 @@ export default class ChallengePage extends React.Component {
     //when pulling data takes a bit
     this.state = {
       images: [],
-      challenge: "none",
+      challenge: undefined,
       challengeList: {}
     };
   }
@@ -64,7 +64,7 @@ export default class ChallengePage extends React.Component {
         this.setState({challenge: challenge});
     }
     else{
-      this.setState({challenge: undefined});
+      this.setState({challenge: "magicnumbersarebad"});
     }
     event.preventDefault();
   }
@@ -96,7 +96,7 @@ export default class ChallengePage extends React.Component {
         //Print message to the screen telling user what the error was
       }
       else{
-        this.setState({images: res.data, challenge: 'none'});
+        this.setState({images: res.data, challenge: "magicnumbersarebad"});
       }
     });
   }
