@@ -32,7 +32,7 @@ app.get('/allphotos', (request, response) => {
          });
 })
 
-app.get('/allids', (request, response) =>{
+app.get('/scoredPosts', (request, response) =>{
   const uri = 'mongodb://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+':'+process.env.DBPORT+'/'+process.env.DB;
 
   mongodb.MongoClient.connect(uri, function(err, db) {
