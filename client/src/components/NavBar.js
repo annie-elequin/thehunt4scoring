@@ -39,7 +39,8 @@ export default class NavBar extends React.Component {
           <NavItem eventKey={6}><Link to="/allUnscored">View All Unscored Posts</Link></NavItem>
           <NavItem eventKey={7}><Link to="/unscoredByDate">Unscored By Day</Link></NavItem>
           <NavItem eventKey={8}><Link to="/addChallenge">Add New Challenges</Link></NavItem>
-          <NavItem eventKey={9}><Link to="/userScores">View Scores For Users</Link></NavItem>
+          <NavItem eventKey={9}><Link to="/userScores">View The Player Leaderboard</Link></NavItem>
+          <NavItem eventKey={10}><Link to="/teamScores">View The Daily Score For Each Team</Link></NavItem>
 
 
         </Nav>

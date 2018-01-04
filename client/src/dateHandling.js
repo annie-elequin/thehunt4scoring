@@ -29,5 +29,4 @@ export function fbToJsDate(inDate){
   else{
     return undefined;
   }
-
 }
