@@ -7,6 +7,7 @@ import Routes from './routes.js';
 import registerServiceWorker from './registerServiceWorker';
 
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 const reducers = {
 	form: formReducer
