@@ -20,6 +20,7 @@
   "homepage": "https://github.com/annie-mathis/thehunt4scoring#readme",
   "dependencies": {
     "express": "^4.16.2",
+    "mongodb": "^3.0.0-rc0",
     "password-generator": "^2.2.0"
   }
 }
