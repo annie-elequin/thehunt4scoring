@@ -2,11 +2,11 @@
   "name": "thehuntapp2",
   "version": "1.0.0",
   "description": "App to ease scoring of posts in #TheHunt4.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "test": "test: echo \"Error: no test specified\" && exit 1",
+    "start": "npm install &&  babel-register server",
+    "heroku-postbuild": "rimraf ./client/build/static && cd client && npm install --only=dev && npm install && npm run build"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,29 @@
   },
   "homepage": "https://github.com/annie-mathis/thehunt4scoring#readme",
   "dependencies": {
+    "axios": "^0.17.1",
+    "rimraf": "^2.6.1",
+    "dotenv": "^4.0.0",
     "express": "^4.16.2",
-    "password-generator": "^2.2.0"
+    "mongodb": "^2.2.33",
+    "babel-loader": "^7.0.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.5.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "babel-register-cli": "^4.0.0",
+    "react-bootstrap": "^0.31.5"
+  },
+  "devDependencies": {
+    "webpack": "^2.5.0",
+    "webpack-dev-server": "^2.5.0"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "react",
+      "stage-2"
+    ]
   }
 }
